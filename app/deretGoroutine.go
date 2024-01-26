@@ -7,7 +7,7 @@ type DeretBilangan struct {
 }
 
 func (d *DeretBilangan) Prima() {
-	// fmt.Printf("Deret bilangan prima: ")
+	fmt.Printf("Deret bilangan prima: ")
 
 	for i := 1; i <= d.Limit; i++ {
 		isPrime := true
@@ -24,7 +24,7 @@ func (d *DeretBilangan) Prima() {
 			}
 		}
 	}
-	fmt.Printf("Deret bilangan prima: ")
+	fmt.Println()
 }
 
 func (d *DeretBilangan) Ganjil() {
