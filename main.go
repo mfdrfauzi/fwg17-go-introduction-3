@@ -35,14 +35,41 @@ func main() {
 	time.Sleep(2 * time.Second)
 
 	//Functions with Goroutine and WaitGroup
-	//fmt.Println("\n---Data Trade with GOroutine and Waitgroup---")
+	fmt.Println("\n---Data Trade with GOroutine and Waitgroup---")
+	var wg sync.WaitGroup
+
+	fibonacciResultCh := make(chan int, 10)
+	oddCh := make(chan int, 10)
+	evenCh := make(chan int, 10)
+
+	wg.Add(1)
+	go app.Fibonacci(30, fibonacciResultCh, &wg)
+
+	wg.Add(1)
+	go app.OddEven(fibonacciResultCh, oddCh, evenCh, &wg)
+
+	wg.Wait()
+
+	fmt.Print("Bilangan Fibonacci: ")
+	for fib := range fibonacciResultCh {
+		fmt.Print(fib, " ")
+	}
+
+	fmt.Print("\nBilangan Ganjil: ")
+	for odd := range oddCh {
+		fmt.Print(odd, " ")
+	}
+
+	fmt.Print("\nBilangan Genap:")
+	for even := range evenCh {
+		fmt.Print(even, " ")
+	}
+	time.Sleep(3 * time.Second)
 
 	//Program Aplikasi Pembagian Jadwal Piket
-	fmt.Println("\n---Pembagian Jadwal Piket---")
+	fmt.Println("\n\n---Pembagian Jadwal Piket---")
 	days := []string{"Senin", "Selasa", "Rabu", "Kamis", "Jumat"}
 	persons := []string{"Dzulfikar", "Fauzi", "Gabriel", "David", "Eva"}
-
-	var wg sync.WaitGroup
 
 	scheduleCh := make(chan app.Schedule, 5)
 
@@ -52,5 +79,5 @@ func main() {
 	go app.PrintSchedule(scheduleCh, &wg)
 
 	wg.Wait()
-	fmt.Println("Program selesai.")
+	fmt.Println("\nProgram selesai.")
 }
