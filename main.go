@@ -17,11 +17,11 @@ func main() {
 	go app.Sum(a[:len(a)/2], chn) //Result 1
 	go app.Sum(a[len(a)/2:], chn) //Result 2
 
-	half1 := <-chn
-	half2 := <-chn
-	total := half1 + half2
-	fmt.Println("Result 1:", half1)
-	fmt.Println("Result 2:", half2)
+	result1 := <-chn
+	result2 := <-chn
+	total := result1 + result2
+	fmt.Println("Result 1:", result1)
+	fmt.Println("Result 2:", result2)
 	fmt.Println("Total Sum:", total)
 	time.Sleep(1 * time.Second)
 
